@@ -63,7 +63,7 @@ const RootContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: none;
-  border: 2px solid #ffffff;
+  border: 4px solid #0a6ebd;
   border-radius: 10px;
   width: 70%;
   /* 수직 수평 */
@@ -101,7 +101,7 @@ const StyledInput = styled.input`
   width: 100%;
   /* 수직 수평 */
   margin: 0.5rem 0;
-  border: none;
+  border: 1.5px solid grey;
   border-radius: 10px;
   font-family: "Alfa Slab One", cursive;
   font-size: 0.2rem;
@@ -118,7 +118,7 @@ const StyledButton = styled.button`
   font-family: "Alfa Slab One", cursive;
   /* text-decoration: underline; */
   background: #ffffff;
-  border: none;
+  border: 1.5px solid grey;
   border-radius: 10px;
   padding: 0.8rem;
   width: 100%;
@@ -128,4 +128,5 @@ const StyledButton = styled.button`
 const StyledRegisterButton = styled(StyledButton)`
   background: none;
   text-decoration: underline;
+  border: none;
 `;
