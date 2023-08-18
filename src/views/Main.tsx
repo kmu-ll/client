@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { SpotInfo } from "../components/SpotInfo";
 
 export const Main = () => {
   const { naver } = window;
-  const [isClicked, setIsClicked] = useState(false);
   const mapRef = useRef<HTMLElement | null | any>(null);
-
+  const selectedMarker = useRef<any | null>(null);
   // 사용자 위치 변수 : 위도,경도 객체
   const [myLocation, setMyLocation] = useState<
     { latitude: Number; longitude: Number } | string
@@ -57,7 +55,7 @@ export const Main = () => {
       setMyLocation({ latitude: 37.4979517, longitude: 127.0276188 });
     }
   }, []);
-
+  // 현재 위치를 추적한 후, 현재 위치를 중심점으로 옮기고, 스팟들의 마커를 찍어줍니다.
   useEffect(
     () => {
       // 사용자 중심 위치로 지도 이동
@@ -71,10 +69,11 @@ export const Main = () => {
           // 확대/축소 가능 여부
           zoomControl: true,
           // 초기 줌 설정
-          zoom: 16,
+          zoom: 17,
         });
 
         // 주변 마커
+        // eslint-disable-next-line array-callback-return
         otherLatLngs.map((object) => {
           var marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(object.lat, object.lng),
@@ -95,6 +94,7 @@ export const Main = () => {
     [mapRef, myLocation]
   );
 
+  // 마커들의 클릭 이벤트를 설정하는 함수
   function markerClickEvent(marker: any) {
     // 스팟 마커가 클릭되었을때의 이벤트
     naver.maps.Event.addListener(marker, "click", function (e: any) {
@@ -104,15 +104,12 @@ export const Main = () => {
       );
       // 선택한 마커로 부드럽게 이동
       mapRef.current.panTo(mapLatLng);
-      // 마커 클릭되었음을 의미
-      setIsClicked(true);
-      const icon = marker.getIcon();
-      icon.size = new naver.maps.Size(25, 25);
-      icon.scaledSize = new naver.maps.Size(25, 25);
-      marker.setIcon(icon);
+      // 클릭된 마커의 사이즈 변화, 현재 클릭된 마커 업데이트(한 마커만 클릭됨을 표현)
+      setClickedMarker(marker);
     });
   }
 
+  // 넘어온 객체의 type에 따라 이미지 변경하는 함수
   function filterMarkerImg(markerType: any) {
     // 마커가 넘어왔을때 해당 이미지 옵션에 따라 이미지 분류
     switch (markerType) {
@@ -126,11 +123,45 @@ export const Main = () => {
         return "./img/default.png";
     }
   }
+  // 클릭된 마커의 사이즈를 키우는 함수
+  function setClickedMarker(marker: any) {
+    // 만약 초기에 클릭되었거나, 이후부터는 현재 클릭된 마커와 담겨있는 마커값이 다르다면,
+    if (!selectedMarker.current || selectedMarker.current !== marker) {
+      // 초기값인 null이 넘어온 첫 경우엔
+      if (!selectedMarker.current) {
+        // 현재 마커의 사이즈를 키우고
+        const icon = marker.getIcon();
+        icon.size = new naver.maps.Size(25, 25);
+        icon.scaledSize = new naver.maps.Size(25, 25);
+        marker.setIcon(icon);
+        // current값을 업데이트
+        selectedMarker.current = marker;
+      } else if (selectedMarker.current !== marker) {
+        // 초기값이 넘어온게 아니라면, 이전값은 사이즈를 되돌리고, 현재 값의 사이즈를 키우는 방식 이용
+        // 이전에 존재한 마커는 사이즈를 줄임
+        const beforeIcon = selectedMarker.current.getIcon();
+        beforeIcon.size = new naver.maps.Size(15, 15);
+        beforeIcon.scaledSize = new naver.maps.Size(15, 15);
+        selectedMarker.current.setIcon(beforeIcon);
+        // 현재 클릭된 마커는 사이즈를 키우고
+        const nowIcon = marker.getIcon();
+        nowIcon.size = new naver.maps.Size(25, 25);
+        nowIcon.scaledSize = new naver.maps.Size(25, 25);
+        marker.setIcon(nowIcon);
+        // selectedMarker의 current값을 지금 누른 마커로 변경
+        selectedMarker.current = marker;
+      }
+    }
+    const icon = marker.getIcon();
+    icon.size = new naver.maps.Size(25, 25);
+    icon.scaledSize = new naver.maps.Size(25, 25);
+    marker.setIcon(icon);
+  }
 
   return (
     <>
       <StyledMap id="map" ref={mapRef} />
-      {isClicked ? <SpotInfo spotData={otherLatLngs} /> : null}
+      {/* {isClicked ? <SpotInfo spotData={otherLatLngs} /> : null} */}
     </>
   );
 };
