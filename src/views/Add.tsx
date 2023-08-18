@@ -133,7 +133,7 @@ const Add = () => {
           position: "absolute",
           right: "calc(50% - 20px)",
           margin: "auto",
-          bottom: drawerBleeding + 20,
+          bottom: drawerBleeding + 100,
           background: "#000000",
           opacity: 0.5,
         }}
