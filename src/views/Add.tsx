@@ -49,7 +49,10 @@ const Add = () => {
       nameValue,
       descriptionValue,
       typeValue
-    ).then(() => alert("업로드 완료"));
+    ).then(() => {
+      alert("업로드 완료");
+      navigate("/");
+    });
   };
 
   useEffect(() => {
@@ -122,7 +125,7 @@ const Add = () => {
           background: "#000000",
           opacity: 0.5,
         }}
-        onClick={() => navigate("/main")}
+        onClick={() => navigate("/")}
       >
         <CloseIcon />
       </Fab>
