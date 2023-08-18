@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.5",
+    "@mui/styled-engine-sc": "^5.12.0",
     "@react-oauth/google": "^0.11.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -18,9 +23,12 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "react-scripts": "^5.0.1",
-    "styled-components": "^6.0.5",
+    "styled-components": "^5.3.1",
     "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,6 +56,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/navermaps": "^3.6.5"
+    "@types/navermaps": "^3.6.5",
+    "@types/styled-components": "^5.1.26"
   }
 }
