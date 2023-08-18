@@ -35,6 +35,13 @@ const Add = () => {
   //   setRestype(event.target.value as RestType);
   // };
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
   const onSubmit = () => {
     // console.log(typeValue, nameValue, descriptionValue);
     if (nameValue === "" || descriptionValue === "" || typeValue === "") {

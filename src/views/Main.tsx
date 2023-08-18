@@ -42,6 +42,13 @@ export const Main = () => {
   }, []);
 
   useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  useEffect(() => {
     if (typeValue === "all") {
       setFilteredRest([...rest]);
     } else {
