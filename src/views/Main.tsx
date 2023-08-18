@@ -46,7 +46,7 @@ export const Main = () => {
       top: 0,
       behavior: "smooth",
     });
-  });
+  }, []);
 
   useEffect(() => {
     if (typeValue === "all") {

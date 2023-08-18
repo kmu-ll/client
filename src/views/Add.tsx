@@ -40,7 +40,7 @@ const Add = () => {
       top: 0,
       behavior: "smooth",
     });
-  });
+  }, []);
 
   const onSubmit = () => {
     // console.log(typeValue, nameValue, descriptionValue);
