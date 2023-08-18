@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import { type } from "@testing-library/user-event/dist/type";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
@@ -63,36 +62,6 @@ export const Main = () => {
   useEffect(() => {
     console.log(filteredRest);
   }, [filteredRest]);
-
-  // 임의로 받아온 값(예시)
-  // const otherLatLngs = [
-  //   // 계대 행소 박물관
-  //   { lat: 35.857, lng: 128.4899, type: "bench" },
-  //   // 계대 근처 점터공원
-  //   { lat: 35.8548, lng: 128.4939, type: "bench" },
-  //   // 계대 근처 돌산공원
-  //   { lat: 35.8573, lng: 128.4935, type: "bench" },
-  //   // 계명문화대
-  //   { lat: 35.8597, lng: 128.4909, type: "bench" },
-  //   // 와룡아래공원
-  //   { lat: 35.8566, lng: 128.5006, type: "bench" },
-  //   // 와룡(위)공원
-  //   { lat: 35.8584, lng: 128.5006, type: "bench" },
-  //   // 마포 어린이 공원
-  //   { lat: 37.5354, lng: 126.9437, type: "bench" },
-  //   // 복사꽃 어린이 공원
-  //   { lat: 37.539, lng: 126.9465, type: "bench" },
-  //   // 양재 시민의 숲
-  //   { lat: 37.4707, lng: 127.0356, type: "bench" },
-  //   // 두둑재 어린이 공원
-  //   { lat: 37.468, lng: 127.044, type: "bench" },
-  //   // 양재 근린 공원
-  //   { lat: 37.4716, lng: 127.0428, type: "bench" },
-  //   // 스타벅스 포이점
-  //   { lat: 37.4778, lng: 127.0451, type: "starbucks" },
-  //   // 스타벅스 하이브랜드점
-  //   { lat: 37.4626, lng: 127.0367, type: "starbucks" },
-  // ];
 
   //현재 위치를 추적합니다.
   useEffect(() => {
@@ -165,20 +134,6 @@ export const Main = () => {
     [mapRef, myLocation, filteredRest]
   );
 
-  // 마커들의 클릭 이벤트를 설정하는 함수
-  function markerClickEvent(marker: any) {
-    // 스팟 마커가 클릭되었을때의 이벤트
-    // naver.maps.Event.addListener(marker, "click", function (e: any) {
-    //   const mapLatLng = new naver.maps.LatLng(
-    //     Number(marker.position._lat),
-    //     Number(marker.position._lng)
-    //   );
-    //   // 선택한 마커로 부드럽게 이동
-    //   mapRef.current.panTo(mapLatLng);
-    //   // 클릭된 마커의 사이즈 변화, 현재 클릭된 마커 업데이트(한 마커만 클릭됨을 표현)
-    //   setClickedMarker(marker);
-    // });
-  }
   // 넘어온 객체의 type에 따라 이미지 변경하는 함수
   function filterMarkerImg(markerType: any) {
     // 마커가 넘어왔을때 해당 이미지 옵션에 따라 이미지 분류
