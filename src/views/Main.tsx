@@ -108,7 +108,6 @@ export const Main = () => {
       setClickedMarker(marker);
     });
   }
-
   // 넘어온 객체의 type에 따라 이미지 변경하는 함수
   function filterMarkerImg(markerType: any) {
     // 마커가 넘어왔을때 해당 이미지 옵션에 따라 이미지 분류
@@ -131,8 +130,8 @@ export const Main = () => {
       if (!selectedMarker.current) {
         // 현재 마커의 사이즈를 키우고
         const icon = marker.getIcon();
-        icon.size = new naver.maps.Size(25, 25);
-        icon.scaledSize = new naver.maps.Size(25, 25);
+        icon.size = new naver.maps.Size(30, 30);
+        icon.scaledSize = new naver.maps.Size(30, 30);
         marker.setIcon(icon);
         // current값을 업데이트
         selectedMarker.current = marker;
@@ -140,21 +139,21 @@ export const Main = () => {
         // 초기값이 넘어온게 아니라면, 이전값은 사이즈를 되돌리고, 현재 값의 사이즈를 키우는 방식 이용
         // 이전에 존재한 마커는 사이즈를 줄임
         const beforeIcon = selectedMarker.current.getIcon();
-        beforeIcon.size = new naver.maps.Size(15, 15);
-        beforeIcon.scaledSize = new naver.maps.Size(15, 15);
+        beforeIcon.size = new naver.maps.Size(20, 20);
+        beforeIcon.scaledSize = new naver.maps.Size(20, 20);
         selectedMarker.current.setIcon(beforeIcon);
         // 현재 클릭된 마커는 사이즈를 키우고
         const nowIcon = marker.getIcon();
-        nowIcon.size = new naver.maps.Size(25, 25);
-        nowIcon.scaledSize = new naver.maps.Size(25, 25);
+        nowIcon.size = new naver.maps.Size(30, 30);
+        nowIcon.scaledSize = new naver.maps.Size(30, 30);
         marker.setIcon(nowIcon);
         // selectedMarker의 current값을 지금 누른 마커로 변경
         selectedMarker.current = marker;
       }
     }
     const icon = marker.getIcon();
-    icon.size = new naver.maps.Size(25, 25);
-    icon.scaledSize = new naver.maps.Size(25, 25);
+    icon.size = new naver.maps.Size(30, 30);
+    icon.scaledSize = new naver.maps.Size(30, 30);
     marker.setIcon(icon);
   }
 
