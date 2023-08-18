@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Drawer from "../components/Drawer";
 
 interface Props {
@@ -6,13 +6,13 @@ interface Props {
 }
 
 const useDrawer = (props: Props) => {
-  const [open, setOpen] = React.useState(props.init);
+  const [open, setOpen] = useState(props.init);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  return { Drawer, isOpen: open, toggleDrawer };
+  return { Drawer, isOpen: open, toggleDrawer, setOpen };
 };
 
 export default useDrawer;

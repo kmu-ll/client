@@ -10,6 +10,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useInput } from "../hooks/useInput";
+import { PostRest } from "../api/map";
+import CheckIcon from "@mui/icons-material/Check";
+import { useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Add = () => {
   const { naver } = window;
@@ -23,6 +27,7 @@ const Add = () => {
   const { value: descriptionValue, onChange: onDescriptionChange } =
     useInput("");
   const { value: typeValue, onChange: onTypeChange } = useInput("bench");
+  let navigate = useNavigate();
 
   const drawerBleeding = 56;
 
@@ -31,7 +36,20 @@ const Add = () => {
   // };
 
   const onSubmit = () => {
-    console.log(typeValue, nameValue, descriptionValue);
+    // console.log(typeValue, nameValue, descriptionValue);
+    if (nameValue === "" || descriptionValue === "" || typeValue === "") {
+      alert("모든 칸을 기입해주세요");
+      return;
+    }
+    const center = mapRef.current.getCenter();
+    // console.log(center);
+    PostRest(
+      center._lat,
+      center._lng,
+      nameValue,
+      descriptionValue,
+      typeValue
+    ).then(() => alert("업로드 완료"));
   };
 
   useEffect(() => {
@@ -86,10 +104,27 @@ const Add = () => {
           position: "absolute",
           right: 20,
           bottom: drawerBleeding + 20,
+          background: "#285430",
         }}
         onClick={toggleDrawer(true)}
       >
-        <AddIcon />
+        <CheckIcon />
+      </Fab>
+      <Fab
+        color="primary"
+        aria-label="add"
+        size="small"
+        style={{
+          position: "absolute",
+          right: "calc(50% - 20px)",
+          margin: "auto",
+          bottom: drawerBleeding + 20,
+          background: "#000000",
+          opacity: 0.5,
+        }}
+        onClick={() => navigate("/main")}
+      >
+        <CloseIcon />
       </Fab>
       <div
         id="map_add"
@@ -107,7 +142,31 @@ const Add = () => {
           pointerEvents: "none",
         }}
       >
-        <PlaceIcon style={{ color: "#ff00ff" }} />
+        <PlaceIcon fontSize="large" style={{ color: "#285430" }} />
+      </div>
+      <div
+        style={{
+          width: "100%",
+          position: "absolute",
+          top: "calc(25% - 100px)",
+          left: 0,
+        }}
+      >
+        <span
+          style={{
+            position: "relative",
+            padding: "8px",
+            borderRadius: "4px",
+            background: "rgba(0,0,0,0.5)",
+            top: 50,
+            left: 0,
+            margin: "0 auto",
+            color: "#ffffff",
+            zIndex: 100,
+          }}
+        >
+          장소를 지정해주세요
+        </span>
       </div>
 
       <Drawer
