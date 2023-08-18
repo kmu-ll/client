@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-// import { SpotInfo } from "../components/SpotInfo";
-// import styled from "styled-components";
+import styled from "styled-components";
+import { SpotInfo } from "../components/SpotInfo";
 
 export const Main = () => {
   const { naver } = window;
+  const [isClicked, setIsClicked] = useState(false);
   const mapRef = useRef<HTMLElement | null | any>(null);
-  // const markerRef = useRef<any | null>(null);
 
   // 사용자 위치 변수 : 위도,경도 객체
   const [myLocation, setMyLocation] = useState<
@@ -15,17 +15,27 @@ export const Main = () => {
   // 임의로 받아온 값(예시)
   const otherLatLngs = [
     // 계대 행소 박물관
-    { lng: 35.857, lat: 128.4899 },
+    { lat: 35.857, lng: 128.4899, type: "bench" },
     // 계대 근처 점터공원
-    { lat: 35.8548, lng: 128.4939 },
+    { lat: 35.8548, lng: 128.4939, type: "bench" },
     // 계대 근처 돌산공원
-    { lat: 35.8573, lng: 128.4935 },
+    { lat: 35.8573, lng: 128.4935, type: "bench" },
     // 계명문화대
-    { lat: 35.8597, lng: 128.4909 },
+    { lat: 35.8597, lng: 128.4909, type: "bench" },
     // 와룡아래공원
-    { lat: 35.8566, lng: 128.5006 },
+    { lat: 35.8566, lng: 128.5006, type: "bench" },
     // 와룡(위)공원
-    { lat: 35.8584, lng: 128.5006 },
+    { lat: 35.8584, lng: 128.5006, type: "bench" },
+    // 마포 어린이 공원
+    { lat: 37.5354, lng: 126.9437, type: "bench" },
+    // 복사꽃 어린이 공원
+    { lat: 37.539, lng: 126.9465, type: "bench" },
+    // 양재 시민의 숲
+    { lat: 37.4707, lng: 127.0356, type: "bench" },
+    // 두둑재 어린이 공원
+    { lat: 37.468, lng: 127.044, type: "bench" },
+    // 양재 근린 공원
+    { lat: 37.4716, lng: 127.0428, type: "bench" },
   ];
 
   //현재 위치를 추적합니다.
@@ -66,11 +76,16 @@ export const Main = () => {
 
         // 주변 마커
         otherLatLngs.map((object) => {
-          // 주변 마커 찍기(위도, 경도값)
           var marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(object.lat, object.lng),
             map: mapRef.current,
+            icon: {
+              url: filterMarkerImg(object.type),
+              size: new naver.maps.Size(15, 15),
+              scaledSize: new naver.maps.Size(15, 15),
+            },
           });
+          // 마커가 클릭되었을때
           markerClickEvent(marker);
         });
       }
@@ -89,16 +104,41 @@ export const Main = () => {
       );
       // 선택한 마커로 부드럽게 이동
       mapRef.current.panTo(mapLatLng);
+      // 마커 클릭되었음을 의미
+      setIsClicked(true);
+      const icon = marker.getIcon();
+      icon.size = new naver.maps.Size(25, 25);
+      icon.scaledSize = new naver.maps.Size(25, 25);
+      marker.setIcon(icon);
     });
+  }
+
+  function filterMarkerImg(markerType: any) {
+    // 마커가 넘어왔을때 해당 이미지 옵션에 따라 이미지 분류
+    switch (markerType) {
+      case "bench":
+        return "./img/bench.png";
+      case "starbucks":
+        return "./img/starbucks.png";
+      case "jungja":
+        return "./img/jungja.png";
+      default:
+        return "./img/default.png";
+    }
   }
 
   return (
     <>
-      <div
-        id="map"
-        style={{ width: "100%", minHeight: "100vh" }}
-        ref={mapRef}
-      />
+      <StyledMap id="map" ref={mapRef} />
+      {isClicked ? <SpotInfo spotData={otherLatLngs} /> : null}
     </>
   );
 };
+
+const StyledMap = styled.div`
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+`;
