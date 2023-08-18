@@ -38,6 +38,8 @@ export const Main = () => {
     { lat: 37.4778, lng: 127.0451, type: "starbucks" },
     // 스타벅스 하이브랜드점
     { lat: 37.4626, lng: 127.0367, type: "starbucks" },
+    // 근린공원
+    { lat: 37.4716, lng: 127.0465, type: "star" },
   ];
 
   //현재 위치를 추적합니다.
@@ -122,6 +124,8 @@ export const Main = () => {
         return "./img/starbucks.png";
       case "jungja":
         return "./img/jungja.png";
+      case "star":
+        return "./img/star.png";
       default:
         return "./img/default.png";
     }
