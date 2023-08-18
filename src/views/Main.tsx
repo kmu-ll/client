@@ -117,8 +117,10 @@ export const Main = () => {
             myLocation.latitude,
             myLocation.longitude
           ),
+          scaleControl: false,
+          logoControl: false,
           // 확대/축소 가능 여부
-          zoomControl: true,
+          zoomControl: false,
           // 초기 줌 설정
           zoom: 17,
         });
@@ -221,6 +223,30 @@ export const Main = () => {
 
   return (
     <>
+      <div
+        style={{
+          width: "100%",
+          position: "absolute",
+          bottom: drawerBleeding + 100,
+          left: 0,
+        }}
+      >
+        <span
+          style={{
+            position: "relative",
+            padding: "8px",
+            borderRadius: "4px",
+            background: "rgba(0,0,0,0.5)",
+            top: 50,
+            left: 0,
+            margin: "0 auto",
+            color: "#ffffff",
+            zIndex: 100,
+          }}
+        >
+          총 {filteredRest.length}개의 쉼터가 있습니다.
+        </span>
+      </div>
       <StyledMap id="map" ref={mapRef} />
       <div
         style={{

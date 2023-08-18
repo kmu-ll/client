@@ -85,9 +85,11 @@ const Add = () => {
             myLocation.longitude
           ),
           // 확대/축소 가능 여부
-          zoomControl: true,
+          zoomControl: false,
+          scaleControl: false,
+          logoControl: false,
           // 초기 줌 설정
-          zoom: 16,
+          zoom: 17,
         });
 
         // 주변 마커
