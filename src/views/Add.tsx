@@ -102,19 +102,29 @@ const Add = () => {
 
   return (
     <>
-      <Fab
-        color="primary"
-        aria-label="add"
+      <div
         style={{
+          width: "100%",
+          maxWidth: "500px",
           position: "absolute",
-          right: 20,
-          bottom: drawerBleeding + 20,
-          background: "#285430",
+          bottom: 0,
         }}
-        onClick={toggleDrawer(true)}
       >
-        <CheckIcon />
-      </Fab>
+        <Fab
+          color="primary"
+          aria-label="check"
+          style={{
+            position: "absolute",
+            background: "#285430",
+            bottom: drawerBleeding + 20,
+            right: 20,
+          }}
+          onClick={toggleDrawer(true)}
+        >
+          <CheckIcon />
+        </Fab>
+      </div>
+
       <Fab
         color="primary"
         aria-label="add"

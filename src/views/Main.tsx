@@ -250,12 +250,16 @@ export const Main = () => {
       <StyledMap id="map" ref={mapRef} />
       <div
         style={{
-          position: "fixed",
-          top: 20,
-          right: 20,
+          position: "absolute",
+          width: "100%",
+          maxWidth: "500px",
+          top: 0,
         }}
       >
-        <FormControl fullWidth>
+        <FormControl
+          fullWidth
+          style={{ position: "absolute", width: "100px", top: 20, right: 20 }}
+        >
           <InputLabel id="demo-simple-select-label">Type</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -271,19 +275,28 @@ export const Main = () => {
           </Select>
         </FormControl>
       </div>
-      <Fab
-        color="primary"
-        aria-label="add"
+      <div
         style={{
+          width: "100%",
+          maxWidth: "500px",
           position: "absolute",
-          right: 20,
-          bottom: drawerBleeding + 20,
-          background: "#285430",
+          bottom: 0,
         }}
-        onClick={() => navigate("/add")}
       >
-        <AddIcon />
-      </Fab>
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={{
+            position: "absolute",
+            background: "#285430",
+            bottom: drawerBleeding + 20,
+            right: 20,
+          }}
+          onClick={() => navigate("/add")}
+        >
+          <AddIcon />
+        </Fab>
+      </div>
 
       <Drawer
         drawerBleeding={drawerBleeding}
